@@ -1,0 +1,27 @@
+name: CI/CD
+
+on:
+  - push
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        os:
+          - ubuntu-20.04
+          - windows-2019
+
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v2
+
+      # Can't unify both Windows and Linux steps as
+      # using bash script always uses Mono
+      - name: Run build script
+        run: ./build.sh All
+        if: runner.os == Linux
+        shell: bash
+
+      - name: Run build script
+        run: .\build.cmd
+        if: runner.os == Windows
