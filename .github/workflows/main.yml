@@ -19,9 +19,9 @@ jobs:
       # using bash script always uses Mono
       - name: Run build script
         run: ./build.sh All
-        if: runner.os == Linux
+        if: runner.os == 'Linux'
         shell: bash
 
       - name: Run build script
         run: .\build.cmd
-        if: runner.os == Windows
+        if: runner.os == 'Windows'
